@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Writing — Kenneth Augusto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --off-white: #f8f8f8;
+      --light-gray: #efefef;
+      --border: #e8e8e8;
+      --text-primary: #111111;
+      --text-secondary: #555555;
+      --text-muted: #999999;
+      --glow: rgba(200, 210, 255, 0.15);
+      --glow-border: rgba(180, 195, 255, 0.4);
+      --transition: 300ms ease;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--white);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ── NAV ─────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 24px 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--transition);
+    }
+    nav.scrolled { border-bottom-color: var(--border); }
+    .nav-right { display: flex; align-items: center; gap: 0; }
+    .nav-divider { width: 1px; height: 18px; background: var(--border); margin: 0 28px; }
+    .nav-logo { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-primary); text-decoration: none; }
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-links a { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); text-decoration: none; transition: color var(--transition); }
+    .nav-links a:hover, .nav-links a.active { color: #7B93FF; }
+    .nav-resume { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-primary); text-decoration: none; border: 1px solid var(--border); padding: 8px 20px; transition: border-color var(--transition), box-shadow var(--transition); }
+    .nav-resume:hover { border-color: var(--glow-border); box-shadow: 0 0 0 1px var(--glow-border), 0 4px 16px var(--glow); }
+
+    /* ── HERO BANNER ─────────────────────────────────── */
+    .page-hero {
+      min-height: 52vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 64px 72px;
+      position: relative;
+      overflow: hidden;
+      background-color: var(--white);
+      background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><circle cx='16' cy='16' r='1.8' fill='%23FF595E'/><circle cx='48' cy='16' r='1.8' fill='%23FF924C'/><circle cx='80' cy='16' r='1.8' fill='%23FFCA3A'/><circle cx='112' cy='16' r='1.8' fill='%238AC926'/><circle cx='144' cy='16' r='1.8' fill='%231982C4'/><circle cx='16' cy='48' r='1.8' fill='%236A4C93'/><circle cx='48' cy='48' r='1.8' fill='%23FF6B9D'/><circle cx='80' cy='48' r='1.8' fill='%23C77DFF'/><circle cx='112' cy='48' r='1.8' fill='%2300E5FF'/><circle cx='144' cy='48' r='1.8' fill='%2306D6A0'/><circle cx='16' cy='80' r='1.8' fill='%23F72585'/><circle cx='48' cy='80' r='1.8' fill='%237209B7'/><circle cx='80' cy='80' r='1.8' fill='%234361EE'/><circle cx='112' cy='80' r='1.8' fill='%234CC9F0'/><circle cx='144' cy='80' r='1.8' fill='%2380B918'/><circle cx='16' cy='112' r='1.8' fill='%23FFBF00'/><circle cx='48' cy='112' r='1.8' fill='%23FF7900'/><circle cx='80' cy='112' r='1.8' fill='%23E63946'/><circle cx='112' cy='112' r='1.8' fill='%23FF477E'/><circle cx='144' cy='112' r='1.8' fill='%2338B000'/><circle cx='16' cy='144' r='1.8' fill='%2370E000'/><circle cx='48' cy='144' r='1.8' fill='%23FF006E'/><circle cx='80' cy='144' r='1.8' fill='%238338EC'/><circle cx='112' cy='144' r='1.8' fill='%2300C9A7'/><circle cx='144' cy='144' r='1.8' fill='%23FB5607'/></svg>");
+      background-size: 160px 160px;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 90% at 30% 60%, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.55) 55%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page-hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .page-label {
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.2s forwards;
+    }
+
+    .page-label::after {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .page-title {
+      font-size: clamp(64px, 10vw, 130px);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      line-height: 0.92;
+      color: var(--text-primary);
+      text-shadow:
+        1px 1px 0    rgba(255, 89,  94,  0.92),
+        2px 2px 0    rgba(255, 146, 76,  0.80),
+        3px 3px 0    rgba(255, 202, 58,  0.68),
+        4px 4px 1px  rgba(138, 201, 38,  0.55),
+        5px 5px 1px  rgba(6,   214, 160, 0.42),
+        6px 6px 2px  rgba(76,  201, 240, 0.30),
+        8px 8px 3px  rgba(67,  97,  238, 0.17),
+        11px 11px 6px rgba(131, 56,  236, 0.09),
+        14px 14px 20px rgba(247, 37, 133, 0.05);
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.35s forwards;
+    }
+
+    .page-subtitle {
+      margin-top: 28px;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      letter-spacing: 0.03em;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.5s forwards;
+    }
+
+    .hero-line {
+      position: absolute;
+      bottom: 0;
+      left: 64px;
+      right: 64px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--border) 20%, var(--border) 80%, transparent 100%);
+      opacity: 0;
+      animation: lineReveal 1.2s ease 0.8s forwards;
+    }
+
+    /* ── ARTICLES SECTION ────────────────────────────── */
+    .writing-section {
+      padding: 80px 64px 120px;
+      background: var(--white);
+    }
+
+    .writing-section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 48px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      max-width: 48px;
+    }
+
+    /* article cards — same glass card pattern as exp-card */
+    .article-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.28);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(255, 255, 255, 0.85);
+      border-right: 1px solid rgba(255, 255, 255, 0.5);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      border-left: 3px solid var(--border);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 4px 24px rgba(0,0,0,0.04);
+      padding: 40px 48px;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: background var(--transition), box-shadow var(--transition), border-left-color var(--transition);
+    }
+
+    .article-card::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: #7B93FF;
+      box-shadow: 0 0 8px #7B93FF, 0 0 20px #7B93FF;
+      animation: tab-pulse 2.2s ease-in-out infinite;
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .article-card:hover {
+      background: rgba(255, 255, 255, 0.42);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.95), 0 0 0 1px rgba(123,147,255,0.3), 0 8px 40px rgba(0,0,0,0.07);
+      border-left-color: #7B93FF;
+    }
+
+    .article-card:hover::after { opacity: 1; }
+
+    /* watermark number */
+    .article-card::before {
+      content: attr(data-index);
+      position: absolute;
+      right: 40px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: clamp(72px, 12vw, 140px);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: #7B93FF;
+      opacity: 0.05;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    @keyframes tab-pulse {
+      0%, 100% { box-shadow: 0 0 8px #7B93FF, 0 0 24px #7B93FF, 0 0 40px #7B93FF; opacity: 0.5; }
+      50%       { box-shadow: 0 0 16px #7B93FF, 0 0 48px #7B93FF, 0 0 80px #7B93FF; opacity: 1; }
+    }
+
+    .article-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .article-date {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .article-arrow {
+      font-size: 18px;
+      color: var(--border);
+      transition: color var(--transition), transform var(--transition);
+      flex-shrink: 0;
+    }
+
+    .article-card:hover .article-arrow {
+      color: #7B93FF;
+      transform: translateX(5px);
+    }
+
+    .article-title {
+      font-size: clamp(20px, 2.5vw, 28px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      line-height: 1.2;
+      margin-bottom: 14px;
+      transition: color var(--transition);
+    }
+
+    .article-card:hover .article-title {
+      background: linear-gradient(90deg, #7B93FF 0%, #C77DFF 50%, #F72585 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .article-excerpt {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 640px;
+      margin-bottom: 20px;
+    }
+
+    .article-divider {
+      width: 32px;
+      height: 1px;
+      background: rgba(123,147,255,0.35);
+      margin-bottom: 18px;
+    }
+
+    .article-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .article-tag {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 4px 12px;
+      transition: border-color var(--transition), color var(--transition);
+    }
+
+    .article-card:hover .article-tag {
+      border-color: rgba(123,147,255,0.3);
+      color: #7B93FF;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    footer {
+      padding: 32px 64px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.06em; }
+
+    /* ── ANIMATIONS ──────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes lineReveal {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 20px 28px; }
+      .nav-links { gap: 24px; }
+      .page-hero { padding: 0 28px 56px; min-height: 44vh; }
+      .hero-line { left: 28px; right: 28px; }
+      .writing-section { padding: 60px 28px 100px; }
+      .article-card { padding: 32px 28px; }
+    }
+    @media (max-width: 560px) {
+      .page-title { font-size: clamp(48px, 16vw, 80px); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="../" class="nav-logo">KA</a>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="../#about">About</a></li>
+        <li><a href="../#experience">Experience</a></li>
+        <li><a href="../#education">Education</a></li>
+        <li><a href="../#contact">Contact</a></li>
+        <li><a href="../photos/index.html">Photos</a></li>
+        <li><a href="../writing/index.html" class="active">Writing</a></li>
+      </ul>
+      <div class="nav-divider"></div>
+      <a href="../test.pdf" download="Kenneth_Augusto_Resume.pdf" class="nav-resume">Resume</a>
+    </div>
+  </nav>
+
+  <!-- HERO BANNER -->
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <p class="page-label">Kenneth Augusto</p>
+      <h1 class="page-title">Writing</h1>
+      <p class="page-subtitle">Articles, thoughts, and things worth putting into words.</p>
+    </div>
+    <div class="hero-line"></div>
+  </div>
+
+  <!-- ARTICLES -->
+  <section class="writing-section">
+    <div class="writing-section-inner">
+      <p class="section-label reveal">Articles</p>
+
+      <div class="article-stack">
+
+        <a class="article-card reveal" href="#" data-index="01">
+          <div class="article-top">
+            <span class="article-date">Mar 2026</span>
+            <span class="article-arrow">&#8594;</span>
+          </div>
+          <h2 class="article-title">Why I Think Most Portfolios Get It Wrong</h2>
+          <div class="article-divider"></div>
+          <p class="article-excerpt">Everyone's building the same thing — a list of projects with GitHub links and a headshot. Here's what I actually think matters when you're trying to show who you are as a developer and why the standard template is killing your chances.</p>
+          <div class="article-tags">
+            <span class="article-tag">Career</span>
+            <span class="article-tag">Dev</span>
+            <span class="article-tag">Opinion</span>
+          </div>
+        </a>
+
+        <a class="article-card reveal" href="#" data-index="02">
+          <div class="article-top">
+            <span class="article-date">Jan 2026</span>
+            <span class="article-arrow">&#8594;</span>
+          </div>
+          <h2 class="article-title">What Headstarter Taught Me That School Didn't</h2>
+          <div class="article-divider"></div>
+          <p class="article-excerpt">Seven weeks of building fast, getting real feedback, and figuring out what it actually means to ship something. My honest, unfiltered takeaway from the accelerator experience and what I'd tell someone thinking about applying.</p>
+          <div class="article-tags">
+            <span class="article-tag">Reflection</span>
+            <span class="article-tag">Growth</span>
+          </div>
+        </a>
+
+        <a class="article-card reveal" href="#" data-index="03">
+          <div class="article-top">
+            <span class="article-date">Nov 2025</span>
+            <span class="article-arrow">&#8594;</span>
+          </div>
+          <h2 class="article-title">The Stack I'd Use If I Was Starting Over Today</h2>
+          <div class="article-divider"></div>
+          <p class="article-excerpt">Not the trendiest answer. Just what I've actually found useful, what I've burned time on for no reason, and what I'd skip entirely if I could do it again — based on building real projects, not tutorial apps.</p>
+          <div class="article-tags">
+            <span class="article-tag">Tech</span>
+            <span class="article-tag">Opinion</span>
+          </div>
+        </a>
+
+        <a class="article-card reveal" href="#" data-index="04">
+          <div class="article-top">
+            <span class="article-date">Sep 2025</span>
+            <span class="article-arrow">&#8594;</span>
+          </div>
+          <h2 class="article-title">Being a CS Student at Rutgers: The Unfiltered Version</h2>
+          <div class="article-divider"></div>
+          <p class="article-excerpt">The things no one tells you before you sign up — the grind, the community, what the classes are actually like, and whether it's been worth it so far. No highlight reel, just the real picture.</p>
+          <div class="article-tags">
+            <span class="article-tag">College</span>
+            <span class="article-tag">CS</span>
+          </div>
+        </a>
+
+        <a class="article-card reveal" href="#" data-index="05">
+          <div class="article-top">
+            <span class="article-date">Jun 2025</span>
+            <span class="article-arrow">&#8594;</span>
+          </div>
+          <h2 class="article-title">How I Built SneakerStash and What I'd Do Differently</h2>
+          <div class="article-divider"></div>
+          <p class="article-excerpt">A breakdown of the decisions I made, the ones I regret, and the stuff that actually worked when building my first real side project from zero to deployed. Architecture, mistakes, and what I learned about shipping.</p>
+          <div class="article-tags">
+            <span class="article-tag">Project</span>
+            <span class="article-tag">Dev</span>
+            <span class="article-tag">Build</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Kenneth Augusto &nbsp;·&nbsp; Fair Lawn, NJ</p>
+    <p>&copy; 2026</p>
+  </footer>
+
+  <script>
+    // Nav scroll border
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const delay = entry.target.dataset.delay || 0;
+          setTimeout(() => entry.target.classList.add('visible'), delay);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach((el) => {
+      const siblings = Array.from(el.parentNode.children).filter(c => c.classList.contains('reveal'));
+      el.dataset.delay = siblings.indexOf(el) * 80;
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>

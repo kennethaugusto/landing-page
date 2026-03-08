@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photos — Kenneth Augusto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --off-white: #f8f8f8;
+      --light-gray: #efefef;
+      --border: #e8e8e8;
+      --text-primary: #111111;
+      --text-secondary: #555555;
+      --text-muted: #999999;
+      --glow: rgba(200, 210, 255, 0.15);
+      --glow-border: rgba(180, 195, 255, 0.4);
+      --transition: 300ms ease;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--white);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ── NAV ─────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 24px 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--transition);
+    }
+    nav.scrolled { border-bottom-color: var(--border); }
+    .nav-right { display: flex; align-items: center; gap: 0; }
+    .nav-divider { width: 1px; height: 18px; background: var(--border); margin: 0 28px; }
+    .nav-logo { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-primary); text-decoration: none; }
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-links a { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); text-decoration: none; transition: color var(--transition); }
+    .nav-links a:hover, .nav-links a.active { color: #7B93FF; }
+    .nav-resume { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-primary); text-decoration: none; border: 1px solid var(--border); padding: 8px 20px; transition: border-color var(--transition), box-shadow var(--transition); }
+    .nav-resume:hover { border-color: var(--glow-border); box-shadow: 0 0 0 1px var(--glow-border), 0 4px 16px var(--glow); }
+
+    /* ── HERO BANNER ─────────────────────────────────── */
+    .page-hero {
+      min-height: 52vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 64px 72px;
+      position: relative;
+      overflow: hidden;
+      background-color: var(--white);
+      background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><circle cx='16' cy='16' r='1.8' fill='%23FF595E'/><circle cx='48' cy='16' r='1.8' fill='%23FF924C'/><circle cx='80' cy='16' r='1.8' fill='%23FFCA3A'/><circle cx='112' cy='16' r='1.8' fill='%238AC926'/><circle cx='144' cy='16' r='1.8' fill='%231982C4'/><circle cx='16' cy='48' r='1.8' fill='%236A4C93'/><circle cx='48' cy='48' r='1.8' fill='%23FF6B9D'/><circle cx='80' cy='48' r='1.8' fill='%23C77DFF'/><circle cx='112' cy='48' r='1.8' fill='%2300E5FF'/><circle cx='144' cy='48' r='1.8' fill='%2306D6A0'/><circle cx='16' cy='80' r='1.8' fill='%23F72585'/><circle cx='48' cy='80' r='1.8' fill='%237209B7'/><circle cx='80' cy='80' r='1.8' fill='%234361EE'/><circle cx='112' cy='80' r='1.8' fill='%234CC9F0'/><circle cx='144' cy='80' r='1.8' fill='%2380B918'/><circle cx='16' cy='112' r='1.8' fill='%23FFBF00'/><circle cx='48' cy='112' r='1.8' fill='%23FF7900'/><circle cx='80' cy='112' r='1.8' fill='%23E63946'/><circle cx='112' cy='112' r='1.8' fill='%23FF477E'/><circle cx='144' cy='112' r='1.8' fill='%2338B000'/><circle cx='16' cy='144' r='1.8' fill='%2370E000'/><circle cx='48' cy='144' r='1.8' fill='%23FF006E'/><circle cx='80' cy='144' r='1.8' fill='%238338EC'/><circle cx='112' cy='144' r='1.8' fill='%2300C9A7'/><circle cx='144' cy='144' r='1.8' fill='%23FB5607'/></svg>");
+      background-size: 160px 160px;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 90% at 30% 60%, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.55) 55%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page-hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .page-label {
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.2s forwards;
+    }
+
+    .page-label::after {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .page-title {
+      font-size: clamp(64px, 10vw, 130px);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      line-height: 0.92;
+      color: var(--text-primary);
+      text-shadow:
+        1px 1px 0    rgba(255, 89,  94,  0.92),
+        2px 2px 0    rgba(255, 146, 76,  0.80),
+        3px 3px 0    rgba(255, 202, 58,  0.68),
+        4px 4px 1px  rgba(138, 201, 38,  0.55),
+        5px 5px 1px  rgba(6,   214, 160, 0.42),
+        6px 6px 2px  rgba(76,  201, 240, 0.30),
+        8px 8px 3px  rgba(67,  97,  238, 0.17),
+        11px 11px 6px rgba(131, 56,  236, 0.09),
+        14px 14px 20px rgba(247, 37, 133, 0.05);
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.35s forwards;
+    }
+
+    .page-subtitle {
+      margin-top: 28px;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      letter-spacing: 0.03em;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.5s forwards;
+    }
+
+    .hero-line {
+      position: absolute;
+      bottom: 0;
+      left: 64px;
+      right: 64px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--border) 20%, var(--border) 80%, transparent 100%);
+      opacity: 0;
+      animation: lineReveal 1.2s ease 0.8s forwards;
+    }
+
+    /* ── PHOTO GRID SECTION ──────────────────────────── */
+    .photos-section {
+      padding: 80px 64px 120px;
+      background: var(--white);
+    }
+
+    .photos-section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 48px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      max-width: 48px;
+    }
+
+    /* masonry grid */
+    .photo-grid {
+      columns: 3;
+      column-gap: 12px;
+    }
+
+    .photo-item {
+      break-inside: avoid;
+      margin-bottom: 12px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--off-white);
+      border: 1px solid var(--border);
+    }
+
+    .photo-item img {
+      display: block;
+      width: 100%;
+      height: auto;
+      filter: grayscale(20%);
+      transition: filter 400ms ease, transform 400ms ease;
+    }
+
+    .photo-item:hover img {
+      filter: grayscale(0%);
+      transform: scale(1.03);
+    }
+
+    .photo-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 32px 16px 14px;
+      background: linear-gradient(to top, rgba(0,0,0,0.58) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .photo-item:hover .photo-caption { opacity: 1; }
+
+    .photo-caption-text {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+    }
+
+    /* ── LIGHTBOX ────────────────────────────────────── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.94);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 220ms ease;
+    }
+    .lightbox.open { opacity: 1; pointer-events: all; }
+    .lightbox-img { max-width: 88vw; max-height: 88vh; object-fit: contain; display: block; border: 1px solid rgba(255,255,255,0.08); }
+    .lightbox-close {
+      position: absolute;
+      top: 28px; right: 40px;
+      background: none; border: none; cursor: pointer;
+      color: rgba(255,255,255,0.45);
+      font-size: 11px; font-family: inherit;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      transition: color 200ms ease;
+      padding: 8px;
+    }
+    .lightbox-close:hover { color: #fff; }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    footer {
+      padding: 32px 64px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.06em; }
+
+    /* ── ANIMATIONS ──────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes lineReveal {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .photo-grid { columns: 2; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 20px 28px; }
+      .nav-links { gap: 24px; }
+      .page-hero { padding: 0 28px 56px; min-height: 44vh; }
+      .hero-line { left: 28px; right: 28px; }
+      .photos-section { padding: 60px 28px 100px; }
+    }
+    @media (max-width: 560px) {
+      .photo-grid { columns: 1; }
+      .page-title { font-size: clamp(48px, 16vw, 80px); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="../" class="nav-logo">KA</a>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="../#about">About</a></li>
+        <li><a href="../#experience">Experience</a></li>
+        <li><a href="../#education">Education</a></li>
+        <li><a href="../#contact">Contact</a></li>
+        <li><a href="../photos/index.html" class="active">Photos</a></li>
+        <li><a href="../writing/index.html">Writing</a></li>
+      </ul>
+      <div class="nav-divider"></div>
+      <a href="../test.pdf" download="Kenneth_Augusto_Resume.pdf" class="nav-resume">Resume</a>
+    </div>
+  </nav>
+
+  <!-- HERO BANNER -->
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <p class="page-label">Kenneth Augusto</p>
+      <h1 class="page-title">Photos</h1>
+      <p class="page-subtitle">Places, moments, things worth holding onto.</p>
+    </div>
+    <div class="hero-line"></div>
+  </div>
+
+  <!-- GRID -->
+  <section class="photos-section">
+    <div class="photos-section-inner">
+      <p class="section-label reveal">Gallery</p>
+      <div class="photo-grid">
+
+        <div class="photo-item reveal" onclick="openLightbox(this)">
+          <img src="https://picsum.photos/seed/ka1/600/820" alt="New York, NY" />
+          <div class="photo-caption"><span class="photo-caption-text">New York, NY</span></div>
+        </div>
+
+        <div class="photo-item reveal" onclick="openLightbox(this)">
+          <img src="https://picsum.photos/seed/ka2/600/440" alt="Summer 2024" />
+          <div class="photo-caption"><span class="photo-caption-text">Summer 2024</span></div>
+        </div>
+
+        <div class="photo-item reveal" onclick="openLightbox(this)">
+          <img src="https://picsum.photos/seed/ka3/600/720" alt="Somewhere" />
+          <div class="photo-caption"><span class="photo-caption-text">Somewhere</span></div>
+        </div>
+
+        <div class="photo-item reveal" onclick="openLightbox(this)">
+          <img src="https://picsum.photos/seed/ka4/600/500" alt="Fair Lawn, NJ" />
+          <div class="photo-caption"><span class="photo-caption-text">Fair Lawn, NJ</span></div>
+        </div>
+
+        <div class="photo-item reveal" onclick="openLightbox(this)">
+          <img src="https://picsum.photos/seed/ka5/600/900" alt="Golden hour" />
+          <div class="photo-caption"><span class="photo-caption-text">Golden hour</span></div>
+        </div>
+
+        <div class="photo-item reveal" onclick="openLightbox(this)">
+          <img src="https://picsum.photos/seed/ka6/600/600" alt="On the road" />
+          <div class="photo-caption"><span class="photo-caption-text">On the road</span></div>
+        </div>
+
+        <div class="photo-item reveal" onclick="openLightbox(this)">
+          <img src="https://picsum.photos/seed/ka7/600/400" alt="Rutgers" />
+          <div class="photo-caption"><span class="photo-caption-text">Rutgers</span></div>
+        </div>
+
+        <div class="photo-item reveal" onclick="openLightbox(this)">
+          <img src="https://picsum.photos/seed/ka8/600/780" alt="Late night" />
+          <div class="photo-caption"><span class="photo-caption-text">Late night</span></div>
+        </div>
+
+        <div class="photo-item reveal" onclick="openLightbox(this)">
+          <img src="https://picsum.photos/seed/ka9/600/520" alt="Winter" />
+          <div class="photo-caption"><span class="photo-caption-text">Winter</span></div>
+        </div>
+
+        <div class="photo-item reveal" onclick="openLightbox(this)">
+          <img src="https://picsum.photos/seed/ka10/600/860" alt="City lights" />
+          <div class="photo-caption"><span class="photo-caption-text">City lights</span></div>
+        </div>
+
+        <div class="photo-item reveal" onclick="openLightbox(this)">
+          <img src="https://picsum.photos/seed/ka11/600/460" alt="Spring" />
+          <div class="photo-caption"><span class="photo-caption-text">Spring</span></div>
+        </div>
+
+        <div class="photo-item reveal" onclick="openLightbox(this)">
+          <img src="https://picsum.photos/seed/ka12/600/700" alt="Film" />
+          <div class="photo-caption"><span class="photo-caption-text">Film</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Kenneth Augusto &nbsp;·&nbsp; Fair Lawn, NJ</p>
+    <p>&copy; 2026</p>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">Close &times;</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+  </div>
+
+  <script>
+    // Nav scroll border
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const delay = entry.target.dataset.delay || 0;
+          setTimeout(() => entry.target.classList.add('visible'), delay);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach((el) => {
+      const siblings = Array.from(el.parentNode.children).filter(c => c.classList.contains('reveal'));
+      el.dataset.delay = siblings.indexOf(el) * 60;
+      observer.observe(el);
+    });
+
+    // Lightbox
+    function openLightbox(el) {
+      const img = el.querySelector('img');
+      document.getElementById('lightboxImg').src = img.src;
+      document.getElementById('lightboxImg').alt = img.alt;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    document.getElementById('lightbox').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) closeLightbox();
+    });
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+
+</body>
+</html>
