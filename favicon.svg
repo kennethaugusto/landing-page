@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Background -->
+  <rect width="64" height="64" fill="#ffffff"/>
+
+  <!-- Top-left corner bracket -->
+  <line x1="6" y1="6" x2="18" y2="6" stroke="#111111" stroke-width="3" stroke-linecap="square"/>
+  <line x1="6" y1="6" x2="6" y2="18" stroke="#111111" stroke-width="3" stroke-linecap="square"/>
+
+  <!-- Bottom-right corner bracket -->
+  <line x1="58" y1="58" x2="46" y2="58" stroke="#111111" stroke-width="3" stroke-linecap="square"/>
+  <line x1="58" y1="58" x2="58" y2="46" stroke="#111111" stroke-width="3" stroke-linecap="square"/>
+
+  <!-- KA text -->
+  <text
+    x="32"
+    y="43"
+    text-anchor="middle"
+    font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif"
+    font-size="26"
+    font-weight="700"
+    letter-spacing="2"
+    fill="#111111"
+  >KA</text>
+</svg>
